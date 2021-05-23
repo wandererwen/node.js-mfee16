@@ -5,25 +5,27 @@ let name = "wen";
 console.log(name);
 
 /* Algorithm */
-// O(1)
+// 0(1) 常數
+// return ((1 + n) * n) / 2;
+// O(n) 變數 -> 時間上複雜度會隨著n而成長
 
 /* method 1 */
+console.time("SUM");
 function sum(n){
     let sum = 0;
     for(i=1; i<=n; ++i)
         sum+=i;
     return sum;
 }
-console.time("SUM");
 console.timeEnd("SUM");
 
 /* method 2 from classmate#3 */
+console.time("SUM");
 function sum(m){
     let i=1;
     let total = (i+m)*m/2
     return total;
 }
-console.time("SUM");
 console.timeEnd("SUM");
 
 console.log(sum(1)); // 1

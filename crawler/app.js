@@ -1,3 +1,8 @@
+// https://www.twse.com.tw/exchangeReport/STOCK_DAY
+// ?response=json
+// &date=20210528
+// &stockNo=2610
+
 const axios = require('axios').default;
 
 // Make a request for a user with a given ID

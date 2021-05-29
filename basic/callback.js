@@ -1,24 +1,75 @@
-function sum(n) {
-    let result = 0;
-    for(let i=1; i<=0; i++){
-        result += i;
+/* callback hell 1 */
+let doWork = function (job, timer, cb){
+    setTimeout(() => {
+        cb(null, `完成工作 ${job} at ${dt.toISOString()}`);
+    }, timer);
+};
+
+let dt = new Date();
+console.log(`開始工作 at ${dt.toISOString()}`);
+doWork("刷牙", 2000, function(err, result){
+    if(err){
+        console.error(err);
+        return;
     }
-    // 回頭呼叫
-    cb(result);
-    // return result;
+    console.log(result);
+
+    doWork("吃早餐", 3000, function(err, result){
+        if(err){
+            console.error(err);
+            return;
+        }
+        console.log(result);
+        
+        doWork("寫功課", 4000, function(err, result){
+            if(err){
+                console.error(err);
+                return;
+            }
+            console.log(result);
+        });
+    });
+});
+
+
+/* callback hell 2 */
+let doWork = function (job, timer, cb){
+    setTimeout(() => {
+        cb(null, `完成工作 ${job} at ${dt.toISOString()}`);
+    }, timer);
+};
+
+function brush() {
+    doWork("刷牙", 2000, function(err, result){
+        if(err){
+            console.error(err);
+            return;
+        }
+        console.log(result);
+        eat();
+    });
 }
 
-// let ans = sum(10);
-// console.log(ans);
-// ans = ans + sum(4);
-// console.log(ans);
-
-function reportAns(ans){
-    console.log(`Hi, Answer is ${ans}`);
+function eat() {
+    doWork("吃早餐", 3000, function(err, result){
+        if(err){
+            console.error(err);
+            return;
+        }
+        console.log(result);
+        homework();
+    });
 }
 
-function reportAns2(ans){
-    console.log(`Hello, Answer is ${ans}`);
+function homework() {
+    doWork("寫作業", 5000, function(err, result){
+        if(err){
+            console.error(err);
+            return;
+        }
+        console.log(result);
+    });
 }
-
-sum(10, reportAns);
+let dt = new Date();
+console.log(`開始工作 at ${dt.toISOString()}`);
+brush();

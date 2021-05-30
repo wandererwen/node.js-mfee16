@@ -35,7 +35,7 @@ function readFilePromise() {
       console.log(response.data.date);
       console.log(response.data.title);
     } else {
-      // TODO 應該要處查查不回來
+      // TODO 應該要處理查不回來的情況
     }
   } catch (error) {
     console.log("錯誤", error);

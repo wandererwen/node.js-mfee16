@@ -20,7 +20,7 @@ let doWorkPromise = function(job, timer, success){
                 // 成功
                 return resolve(`完成工作： ${job} at ${dt.toISOString()}`);
             }
-            // 這個情輕不會失敗
+            // 這個情境不會失敗
             // if(err){
                 // 失敗
                 reject(`工作失敗： ${job} at ${dt.toISOString()}`);

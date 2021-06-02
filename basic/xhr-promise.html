@@ -44,7 +44,7 @@
           } else {
             reject(`非同步請求 有問題 ${this.status}`);
           }
-          // 職權劃分清楚 - 1
+          // 職權切分 - 1
           if (this.status === 200) {
             resolve(xhr.responseText);
           } else {
@@ -66,7 +66,7 @@
           // console.log(error);
         });
 
-      // 職權劃分清楚 - 2
+      // 職權切分 - 2
       xhrPromise()
         .then((result) => {
           message.innerText = `非同步請求: ${result}`;

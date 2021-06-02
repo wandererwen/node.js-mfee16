@@ -50,3 +50,16 @@ crawler
                     -> axios / package.json "depenDencies"
                         -> follow-redirects
 */
+
+/* 非同步 */
+// call "stack" -> libuv "task queue"
+// "task queue" <- "event loop" -> "stack"
+let code = fs.readFile("stock.txt", "utf8", (err, data) => { // 1
+  // libuv 3
+  if (err) {
+    return console.error("讀檔錯誤", err);
+  }
+  console.log(`讀到的 stock code: ${data}`);
+  return data;
+});
+console.log(code); // 2

@@ -3,3 +3,4 @@ logs
 *.logs
 node_modules
 stock.txt
+.env

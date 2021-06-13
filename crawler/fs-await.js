@@ -3,7 +3,7 @@ const axios = require("axios");
 const fs = require("fs/promises");
 const moment = require("moment");
 
-// 因有fs promise版本，不需要自己寫
+// 因有fs promise版本，不需要自己寫 (v10 and above)
 // function readFilePromise() {
 //   return new Promise((resolve, reject) => {
 //     fs.readFile("stock.txt", "utf8", (err, data) => {
@@ -18,6 +18,7 @@ const moment = require("moment");
 
 (async function () {
   try {
+    // await 回來就是 resolve
     let stockCode = await fs.readFile("stock.txt","utf8");
     let response = await axios.get("https://www.twse.com.tw/exchangeReport/STOCK_DAY",
       {

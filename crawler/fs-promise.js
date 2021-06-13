@@ -1,10 +1,9 @@
 const axios = require("axios");
-
 // 引入 promise 版的 fs
 const fs = require("fs/promises");
 const moment = require("moment");
 
-// 就不需要自己包裝了
+// 因有fs promise版本，不需要自己包 (v10 and above)
 // function readFilePromise() {
 //     return new Promise((resolve, reject) => {
 //         fs.readFile("stock.txt", "utf8", (err, data) => {

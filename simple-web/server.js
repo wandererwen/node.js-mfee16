@@ -1,26 +1,44 @@
 // http 是 nodejs 內建的 web server，不需要安裝
 // https://nodejs.org/docs/latest-v14.x/api/index.html
+// node searchparams / url
 const http = require("http");
+const { URL } = require("url");
+const fs = require("fs/promises");
 
 // createServer(Listener)
 // Listener(request, response) 負責處理進來的連線
 // request 請求物件
 // response 回覆物件
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
     console.log("連線成功");
     console.log(req.url); // 請求網址資訊
     res.statusCode = 200; // 2xx, 3xx, 4xx, 5xx
     res.setHeader("content-type", "text/plain;charset=utf-8") // 中文顯示
 
-    switch (req.url) {
+    // 將 url 一般化，移除他的 query string、非必要的結尾斜線，並且一率小寫
+    const path = req.url.replace(/\/?(?:\?.*)?$/, "").toLocaleLowerCase();
+    // console.log("path: ", path);
+    console.log(`path:${path}`);
+
+    // 處理 query string 查詢字串
+    const url = new URL(req.url, `http://${req.headers.host}`);
+    console.log(url.searchParams);
+
+    switch (path) {
         case "/":
             res.end("嗨 這是首頁");
             break;
         case "/test":
-            res.end("這是測試頁面");
+            res.setHeader("content-type", "text/html;charset=utf-8");
+            let content = await fs.readFile("test.html");
+            // res.end("這是測試頁面");
+            res.end(content);
             break;
         case "/about":
-            res.end("這是關於頁面")
+            // 把 query string 抓出來用
+            // set vs get 存取運算子
+            let name = url.searchParams.get("name") || "網友";
+            res.end(`Hi ${name}, 這是關於頁面`);
             break;
         default:
             res.writeHead(404);
@@ -30,9 +48,9 @@ const server = http.createServer((req, res) => {
     // res.end;
 });
 
-// port 
+// port 網路協定
 server.listen(3000, () => {
-    console.log("跑裡來啊，收 3000 port");
+    console.log("跑起來啊，收 3000 port");
 });
     
     // const connection = mysql.createConnection(); -> 建立物件

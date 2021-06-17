@@ -24,6 +24,7 @@ const server = http.createServer(async (req, res) => {
     const url = new URL(req.url, `http://${req.headers.host}`);
     console.log(url.searchParams);
 
+    // 手動處理路由 router
     switch (path) {
         case "/":
             res.end("嗨 這是首頁");

@@ -2,3 +2,11 @@ extends _layouts/master
 
 block content 
     h1 this is about us 
+
+    mixin Link (label, href = '#')
+        a(href = href )
+            = label
+
+    +Link('Home', '/') 
+
+    img(src="/images/tea.jpeg")

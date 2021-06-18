@@ -1,3 +1,5 @@
+const connection = require("./utils/db"); // ./utils 當前資料夾
+
 // import express package
 const express = require("express");
 
@@ -67,9 +69,17 @@ app.get("/test", function (req, res) {
     res.send("Test Express");
 })
 
-app.listen(3000, () => {
+app.get("/stock", async (req, res) => {
+    let queryResults = await connection.queryAsync("SELECT * FROM stock;");
+    res.render("stock/list", {
+        stocks: queryResults,
+    });
+});
+
+app.listen(3000, async () => {
+    await connection.connectAsync();
     console.log(`Running, Port 3000`);
-})
+});
 
 /* package, module, framework
     size: framework > package > module

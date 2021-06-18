@@ -1,0 +1,13 @@
+extends ../_layouts/master
+
+block content 
+    h1 stock list page 
+
+    table
+        tr 
+            th stock code 
+            th stock name 
+        each stock in stocks 
+            tr
+                td #{stock.stock_id}
+                td #{stock.stock_name}

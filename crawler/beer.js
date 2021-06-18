@@ -34,8 +34,8 @@ exports.beer = beer;
 /*
 module.exports (外部) -> string, function, object <- exports
 
-module.exports = car 把整個 car 物件 export 出去
-exports 的語法只能 export 指定的東西，其他的都還會是 private
+module.exports = beer 把整個 beer 物件 export 出去
+exports.beer = beer 只能 export 指定的東西，其他的都還會是 private
 
 beer - brand - Asahi
      - origin - Japan

@@ -18,7 +18,7 @@ exports.getOrigin = function () {
 }
 
 exports.setOrigin = function (origin) {
-    if (origin == "Japan" || color == "USA") {
+    if (origin == "Japan" || origin == "USA") {
         beer.origin = origin;
     };
     // todo: 不符合，不給改

@@ -39,6 +39,10 @@ const server = http.createServer(async (req, res) => {
             // 把 query string 抓出來用
             // set vs get 存取運算子
             let name = url.searchParams.get("name") || "網友";
+            // nodejs 內建的 response 物件, request 物件
+            // express 的 res, req 是擴充 nodejs 內建的 res, req
+            // express res.send() -> setHeader
+            // res.write(""); // nodejs 原生
             res.end(`Hi ${name}, 這是關於頁面`);
             break;
         default:
@@ -65,3 +69,18 @@ server.listen(3000, () => {
     // NodeJS 直接開發一個 web server
 
     // npm run dev ===> node server.js
+
+
+
+// const item = require("./car") // 不寫路徑的話，會先到 modules 裡找
+
+// console.log(item);
+
+// console.log(item.getColor());
+
+// // item.car.color = "Yellow";
+// item.setColor("Yellow");
+
+// console.log(item);
+
+// console.log(item.getColor());

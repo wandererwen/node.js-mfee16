@@ -4,6 +4,14 @@ extends _layouts/master
 //- scripts 為自訂
 block scripts
     script(src="/javascripts/api.js")
+    //- script(src="https://cdn.jsdelivr.net/npm/vue@2.6.14")
+    script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
 
 block content 
     h1 this is homepage 
+
+    //- vue 
+    //- {{}} 中的東西歸前端管
+    #app 
+        ul 
+            li(v-for="stock in stocks") {{ stock.stock_id }} {{stock.stock_name }}

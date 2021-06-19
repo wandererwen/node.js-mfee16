@@ -1,13 +1,24 @@
-const { json } = require("express")
-
+/* ajax */
 $.ajax({
     type: "post",
-    url: "api/stock",
+    url: "api/stocks",
     dataType: "json",
 })
-.done(function(msg){
-    console.log(msg);
+.done(function(data){
+    console.log(data);
 })
 .always(function () {
     
 });
+
+/* axios */
+axios.get('/api/stocks')
+    .then(function (response) {
+        console.log(response.data);
+    })
+    .catch(function (error) {
+        console.log(error);
+    })
+    .finally(function () {
+
+    });

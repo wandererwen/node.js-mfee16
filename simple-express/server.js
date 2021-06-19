@@ -6,6 +6,10 @@ const express = require("express");
 // use express to create express application "app"
 let app = express();
 
+/* stock */
+let stockRouter = require('./routes/stock');
+app.use('/stock', stockRouter);
+
 /* public */
 // 可以指定一個或多個目錄是「靜態資源目錄」
 // 自動幫你為 public 裡面的檔案建立路由
@@ -78,22 +82,20 @@ app.get("/test", function (req, res) {
 })
 
 /* stock list */
-app.get("/stock", async (req, res) => {
-    let queryResults = await connection.queryAsync("SELECT * FROM stock;");
-    res.render("stock/list", {
-        stocks: queryResults,
-    });
-});
+// app.get("/stock", async (req, res) => {
+//     let queryResults = await connection.queryAsync("SELECT * FROM stock;");
+//     res.render("stock/list", {
+//         stocks: queryResults,
+//     });
+// });
 
 /* stock detail */
-app.get("/stock/:stockCode", async (req, res) => {
-    let queryResults = await connection.queryAsync("SELECT * FROM stock_price WHERE stock_id = ? ORDER BY date;", req.params.stockCode);
-    res.render("stock/detail", {
-        stockPrices: queryResults,
-    });
-  });
-// :stockCode /stock/2330
-// stock?stockCode=2330
+// app.get("/stock/:stockCode", async (req, res) => {
+//     let queryResults = await connection.queryAsync("SELECT * FROM stock_price WHERE stock_id = ? ORDER BY date;", req.params.stockCode);
+//     res.render("stock/detail", {
+//         stockPrices: queryResults,
+//     });
+// });
 
 app.listen(3000, async () => {
     await connection.connectAsync();

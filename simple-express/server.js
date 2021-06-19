@@ -82,6 +82,9 @@ app.get("/test", function (req, res) {
 let stockRouter = require('./routes/stock');
 app.use('/stock', stockRouter)
 
+let apiRouter = require("./routes/api");
+app.use("/api", apiRouter)
+
 /* stock list */
 // app.get("/stock", async (req, res) => {
 //     let queryResults = await connection.queryAsync("SELECT * FROM stock;");

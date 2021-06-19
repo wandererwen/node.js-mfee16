@@ -6,10 +6,6 @@ const express = require("express");
 // use express to create express application "app"
 let app = express();
 
-/* stock */
-let stockRouter = require('./routes/stock');
-app.use('/stock', stockRouter);
-
 /* public */
 // 可以指定一個或多個目錄是「靜態資源目錄」
 // 自動幫你為 public 裡面的檔案建立路由
@@ -64,22 +60,27 @@ app.get("/about", function (req, res) {
 })
 
 // 1. express run from top to bottom and stops when response is found
-app.get("/about", function (req, res, next) {
-    // res.send("About Express A"); 
-    console.log("This is About");
-    next(); // 3. but with middleware, it will pass on to the next request
-})
+// app.get("/about", function (req, res, next) {
+//     // res.send("About Express A"); 
+//     console.log("This is About");
+//     next(); // 3. but with middleware, it will pass on to the next request
+// })
 
 // 2. therefore below response code will not be executed
-app.get("/about", function (req, res) {
-    res.send("About Express B");
-    // res.json("About Express B"); // 4. in most cases, use json to response
-})
-//
+// app.get("/about", function (req, res) {
+//     res.send("About Express B");
+//     // res.json("About Express B"); // 4. in most cases, use json to response
+// })
+// //
 
 app.get("/test", function (req, res) {
     res.send("Test Express");
 })
+
+// moved to routes > stock.js and import by below code
+/* stock */
+let stockRouter = require('./routes/stock');
+app.use('/stock', stockRouter)
 
 /* stock list */
 // app.get("/stock", async (req, res) => {
@@ -96,6 +97,22 @@ app.get("/test", function (req, res) {
 //         stockPrices: queryResults,
 //     });
 // });
+
+/* 404 not found*/
+// 必須放在所有路由的下方
+app.use(function (req, res, next) {
+    // 表示前面的路由都找不到
+    // http status code: 404
+    res.status(404);
+    res.render("404");
+});
+
+/* 500 error */
+app.use(function (err, reg, res, next) {
+    console.log(err.message);
+    res.status(500);
+    res.send("500 - Internal Server Error");
+})
 
 app.listen(3000, async () => {
     await connection.connectAsync();

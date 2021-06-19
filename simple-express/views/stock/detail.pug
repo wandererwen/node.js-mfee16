@@ -1,0 +1,19 @@
+extends ../_layouts/master
+
+block content 
+    h1 stock detail page 
+
+    table
+        tr 
+            th date 
+            th opening price 
+            th highest price
+            th lowest price 
+            th closing price 
+        each price in stockPrices 
+            tr
+                td #{price.date}
+                td #{price.open_price}
+                td #{price.high_price}
+                td #{price.low_price}
+                td #{price.close_price}

@@ -6,13 +6,16 @@ const express = require("express");
 // use express to create express application "app"
 let app = express();
 
+/* public */
 // 可以指定一個或多個目錄是「靜態資源目錄」
 // 自動幫你為 public 裡面的檔案建立路由
 app.use(express.static("public"));
 
+/* views */
 // 第一個變數 views，第二個檔案夾名稱
 app.set("views", "views");
 
+/* view engine */
 // 告訴 express 我們用 view engine 是 pug
 app.set("view engine", "pug");
 
@@ -24,20 +27,21 @@ app.use(function (req, res, next) {
     next(); // middleware -> also runs from top to bottom
 });
 
-// app.use(function (req, res, next) {
-//     console.log("no middleware");
-//     // 幾乎都要呼叫，讓他往下繼續
-//     next(); // middleware -> also runs from top to bottom
-// });
+// code for testing purpose
+app.use(function (req, res, next) {
+    console.log("useless middleware");
+    // 幾乎都要呼叫，讓他往下繼續
+    next(); // middleware -> also runs from top to bottom
+});
 
 /* inside express */
 // req -> middlewares..... -> router
 
 // 路由 router
 // (request, response) {} 去回應這個請求
-// app.get("/", function (req, res) {
-//     res.send("Hey Express");
-// })
+app.get("/", function (req, res) {
+    res.send("Hey Express");
+})
 
 app.get("/about", function (req, res, next) {
     // console.log("This is About");
@@ -45,36 +49,51 @@ app.get("/about", function (req, res, next) {
     next();
 })
 
+/* index */
 app.get("/", function (req, res) {
     res.render("index");
 })
 
+/* about */
 app.get("/about", function (req, res) {
     res.render("about");
 })
 
-// express run from top to bottom and stops when response found
-// app.get("/about", function (req, res) {
-//     res.send("About Express A");
-// })
+// 1. express run from top to bottom and stops when response is found
+app.get("/about", function (req, res, next) {
+    // res.send("About Express A"); 
+    console.log("This is About");
+    next(); // 3. but with middleware, it will pass on to the next request
+})
 
-// therefore below code will not be executed
-// app.get("/about", function (req, res) {
-//     res.send("About Express B");
-//     // res.json("About Express B");
-// })
+// 2. therefore below response code will not be executed
+app.get("/about", function (req, res) {
+    res.send("About Express B");
+    // res.json("About Express B"); // 4. in most cases, use json to response
+})
 //
 
 app.get("/test", function (req, res) {
     res.send("Test Express");
 })
 
+/* stock list */
 app.get("/stock", async (req, res) => {
     let queryResults = await connection.queryAsync("SELECT * FROM stock;");
     res.render("stock/list", {
         stocks: queryResults,
     });
 });
+
+/* stock detail */
+app.get("/stock/:stockCode", async (req, res) => {
+    let queryResults = await connection.queryAsync("SELECT * FROM stock_price WHERE stock_id = ? ORDER BY date;", req.params.stockCode);
+    res.render("stock/detail", {
+        stockPrices: queryResults,
+    });
+  });
+// :stockCode /stock/2330
+// stock?stockCode=2330
 
 app.listen(3000, async () => {
     await connection.connectAsync();

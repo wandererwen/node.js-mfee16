@@ -2,17 +2,22 @@ extends ../_layouts/master
 
 block content 
     h1 Register Form
-
-    form.form#registerForm(method="POST", action="/register") 
-        div 
-            label(for="email") Email 
-            input(name="email", type="email")
-        div 
-            label(for="password") Password
-            input(name="password", type="password")
-        div 
-            label(for="repassword") Comfirm Password
-            input(name="repassword", type="password")
+    //- action="/register" --> / 從首頁開始找，沒有加 / 會從當前頁面開始找
+    //- enctype="multipart/form-data" --> 需要加入表單才會把上傳的檔案內容編碼至HTML請求中
+    form.form#registerForm(method="POST", action="/register", enctype="multipart/form-data") 
         div 
             label(for="name") Account
-            input(name="name", type="name")
+            input(name="name", type="text", value="test")
+        div 
+            label(for="email") Email 
+            input(name="email", type="mail", value="express@test.com")
+        div 
+            label(for="password") Password
+            input(name="password", type="password", value="12345testtest")
+        div 
+            label(for="repassword") Comfirm Password
+            input(name="repassword", type="password", value="12345testtest")
+        div
+            label(for="photo") Photo 
+            input(name="photo", type="file")
+        button(type="submit") Submit 

@@ -1,0 +1,18 @@
+extends ../_layouts/master 
+
+block content 
+    h1 Register Form
+
+    form.form#registerForm(method="POST", action="/register") 
+        div 
+            label(for="email") Email 
+            input(name="email", type="email")
+        div 
+            label(for="password") Password
+            input(name="password", type="password")
+        div 
+            label(for="repassword") Comfirm Password
+            input(name="repassword", type="password")
+        div 
+            label(for="name") Account
+            input(name="name", type="name")

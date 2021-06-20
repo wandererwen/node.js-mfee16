@@ -80,10 +80,15 @@ app.get("/test", function (req, res) {
 // moved to routes > stock.js and import by below code
 /* stock */
 let stockRouter = require('./routes/stock');
-app.use('/stock', stockRouter)
+app.use('/stock', stockRouter);
 
 let apiRouter = require("./routes/api");
-app.use("/api", apiRouter)
+app.use("/api", apiRouter);
+
+let authRouter = require('./routes/auth');
+app.use("/", authRouter);
+// http://localhost:3000/register
+// http://localhost:3000/login
 
 /* stock list */
 // app.get("/stock", async (req, res) => {
